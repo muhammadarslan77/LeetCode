@@ -1,0 +1,8 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        
+        hash_map={}
+        for index , number in enumerate(nums):
+            if target-number in hash_map:
+                return [index,hash_map[target-number]]
+            hash_map[number]=index
