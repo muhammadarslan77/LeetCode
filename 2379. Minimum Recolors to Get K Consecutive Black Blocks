@@ -1,0 +1,20 @@
+class Solution:
+    def minimumRecolors(self, blocks: str, k: int) -> int:
+        left, right = 0, 0
+        min_recolors = len(blocks)
+        whites = 0
+        
+        while right < len(blocks):
+            if blocks[right] == 'W':
+                whites += 1
+
+            if right - left + 1 > k:
+                if blocks[left] == 'W':
+                    whites -= 1
+                left += 1
+
+            if right - left + 1 == k:
+                min_recolors = min(min_recolors,whites)
+
+            right += 1
+        return min_recolors
