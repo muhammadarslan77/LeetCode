@@ -1,0 +1,23 @@
+class Solution:
+    def minimumObstacles(self, grid: List[List[int]]) -> int:
+        m,n = len(grid), len(grid[0])
+
+        available = [[True] * n for _ in range(m)]
+        available[0][0] = False
+
+        moves = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+
+        q = deque([(0, 0, 0)])
+        while True:
+            i, j, dist = q.popleft()
+            for di, dj in moves:
+                new_i = i + di
+                new_j = j + dj
+
+                if 0 <= new_i < m and 0 <= new_j < n and available[new_i][new_j]:
+                    available[new_i][new_j] = False
+
+                    if new_i == m - 1 and new_j == n - 1: return dist
+                    
+                    if grid[new_i][new_j] == 0: q.appendleft((new_i, new_j, dist))
+                    else: q.append((new_i, new_j, dist+1))
