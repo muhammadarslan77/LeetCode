@@ -1,0 +1,14 @@
+class Solution:
+    def longestMonotonicSubarray(self, nums: List[int]) -> int:
+        increase, decrease, answer = 1, 1,1
+        previous = nums.pop(0)
+
+        for num in nums:
+
+            increase = increase * (num > previous) + 1
+            decrease = decrease * (num < previous) + 1
+            previous = num
+
+            answer = max(answer, increase, decrease)
+            
+        return answer
