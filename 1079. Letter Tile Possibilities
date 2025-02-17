@@ -1,0 +1,12 @@
+class Solution:
+    def numTilePossibilities(self, tiles: str) -> int:
+        if len(tiles)==1:
+            return 1
+        seen = set()
+        ans = 0
+        for indx,char in enumerate(tiles):
+            if char in seen:
+                continue
+            seen.add(char)
+            ans += 1 + self.numTilePossibilities(tiles[:indx]+tiles[indx+1:])
+        return ans
