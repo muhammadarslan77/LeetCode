@@ -1,0 +1,17 @@
+class Solution:
+    def mostProfitablePath(self, edges: List[List[int]], bob: int, amount: List[int]) -> int:
+        o,q,s,p,c=set(),{0},[0]*(n:=len(amount)),[0]*n,defaultdict(set)
+        set(c[a].add(b) or c[b].add(a)for a,b in edges)
+        while q:
+            w,q=q,set()
+            for u in w:
+                q.update(c[u])
+                for v in c[u]:c[v].remove(u) ; p[v]=u
+        amount[bob],s[0],q=0,amount[0],c[0]
+        while q:
+            w,q,bob=q,set(),p[bob]
+            amount[bob]=(bob in w)*amount[bob]//2
+            for u in w:
+                s[u]=amount[u]+s[p[u]]
+                q.update(c[u]) if c[u] else  o.add(s[u])
+        return max(o)      
