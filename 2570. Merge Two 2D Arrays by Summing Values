@@ -1,0 +1,8 @@
+class Solution:
+    def mergeArrays(self, nums1: List[List[int]], nums2: List[List[int]]) -> List[List[int]]:
+        i, j, res = 0, 0, []
+        while i < len(nums1) and j < len(nums2):
+            x, y = nums1[i], nums2[j]
+            if x[0] == y[0]: res.append([x[0], x[1] + y[1]]); i += 1; j += 1
+            else: res.append(x if x[0] < y[0] else y); i += x[0] < y[0]; j += x[0] > y[0]
+        return res + nums1[i:] + nums2[j:]
