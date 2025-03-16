@@ -1,0 +1,12 @@
+class Solution:
+    def repairCars(self, ranks: List[int], cars: int) -> int:
+        output = 0
+        left, right = 0, min(ranks) * (cars ** 2)
+        while left <= right:
+            m = (left + right) // 2
+            if sum([int(math.sqrt(m / i)) for i in ranks]) >= cars:
+                output = m
+                right = m - 1
+            else:
+                left = m + 1
+        return output
