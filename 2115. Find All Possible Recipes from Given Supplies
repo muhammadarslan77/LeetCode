@@ -1,0 +1,23 @@
+class Solution:
+    def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
+        
+        inDegree = {recipe: 0 for recipe in recipes}
+        supplies = set(supplies)
+
+        graph = collections.defaultdict(list)
+        for i , recipe in enumerate(recipes):
+            for ingred in ingredients[i]:
+                graph[ingred].append(recipe)
+            inDegree[recipe] = len(ingredients[i])
+
+        q = collections.deque(supplies)
+        res = []
+
+        while q :
+            curIngred = q.popleft()
+            for neighOfCurIngred in graph[curIngred]:
+                inDegree[neighOfCurIngred] -=1
+                if inDegree[neighOfCurIngred] == 0 :
+                    q.append(neighOfCurIngred)
+                    res.append(neighOfCurIngred)
+        return res 
