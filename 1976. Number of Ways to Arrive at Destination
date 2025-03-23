@@ -1,0 +1,26 @@
+MOD = 10**9 + 7
+
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        graph = defaultdict(list)
+        for u, v, t in roads:
+            graph[u].append((v, t))
+            graph[v].append((u, t))
+
+        dist, ways = [float('inf')] * n, [0] * n
+        dist[0], ways[0] = 0, 1
+        heap = [(0, 0)]
+
+        while heap:
+            time, node = heappop(heap)
+            if time > dist[node]: continue
+
+            for neighbor, t in graph[node]:
+                new_time = time + t
+                if new_time < dist[neighbor]:
+                    dist[neighbor], ways[neighbor] = new_time, ways[node]
+                    heappush(heap, (new_time, neighbor))
+                elif new_time == dist[neighbor]:
+                    ways[neighbor] = (ways[neighbor] + ways[node]) % MOD
+
+        return ways[n - 1] % MOD
