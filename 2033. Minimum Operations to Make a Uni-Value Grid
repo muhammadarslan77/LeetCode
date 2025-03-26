@@ -1,0 +1,12 @@
+class Solution:
+    def minOperations(self, grid: List[List[int]], x: int) -> int:
+        value = [n for r in grid for n in r]
+        
+        for n in value:
+            if value[0] % x != n % x:
+                return -1
+        
+        value.sort()
+        mid = value[len(value) // 2]
+        
+        return sum(abs(n - mid) // x for n in value)
