@@ -1,0 +1,8 @@
+class Solution:
+    def putMarbles(self, weights: List[int], k: int) -> int:
+        adj_pair = []
+        for i in range(1,len(weights)):
+            adj_pair.append(weights[i]+weights[i-1])
+        adj_pair.sort()
+        n = len(adj_pair)
+        return sum(adj_pair[n - (k-1):]) - sum(adj_pair[:k-1])
