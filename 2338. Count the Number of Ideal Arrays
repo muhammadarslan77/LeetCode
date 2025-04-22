@@ -1,0 +1,32 @@
+class Solution:
+    def idealArrays(self, n: int, maxValue: int) -> int:
+        def dfs(prev_num, size):
+
+            if prev_num > maxValue or size > n:
+                return 0
+
+            if (prev_num, size) in memo:
+                return memo[(prev_num, size)]
+
+            same = comb(n - 1, size - 1)
+
+            change = 0
+            for next_num in range(2 * prev_num, maxValue + 1, prev_num):
+                change += dfs(next_num, size + 1)
+                change %= kMod
+               
+            memo[(prev_num, size)] = (same + change) % kMod
+
+            return memo[(prev_num, size)]
+
+        kMod = 10 ** 9 + 7
+
+        memo = dict()
+
+        res = 0       
+
+        for num in range(1, maxValue + 1):
+            temp = dfs(num, 1)
+            res = (res + temp) % kMod
+      
+        return res
