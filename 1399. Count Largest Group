@@ -1,0 +1,14 @@
+class Solution:
+    def countLargestGroup(self, n: int) -> int:
+        def fun(n):
+            ans = 0
+            while n>0:
+                ans += n%10
+                n //= 10
+            return ans
+
+        d=defaultdict(int)
+        for i in range(1, n+1):
+            d[fun(i)] += 1
+        c = Counter(d.values())
+        return c[max(c)]
