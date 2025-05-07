@@ -1,0 +1,31 @@
+class Solution:
+    def minTimeToReach(self, moveTime: List[List[int]]) -> int:
+        dirs = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        m, n = len(moveTime), len(moveTime[0])
+
+        distance = [[float('inf') for _ in range(n)] for _ in range(m)]
+        distance[0][0] = 0       
+
+        queue = [(0, 0, 0)]      
+
+        while queue:
+            i, j, time = queue.pop(0)
+
+            if distance[i][j] < time:
+                continue
+
+            distance[i][j] = time
+
+            for di, dj in dirs:
+                di, dj = i + di, j + dj
+
+                if di < 0 or di >= m or dj < 0 or dj >= n:
+                    continue
+
+                next_time = max(distance[i][j], moveTime[di][dj]) + 1
+
+                if next_time < distance[di][dj]:
+                    distance[di][dj] = next_time
+                    queue += [(di, dj, next_time)]
+
+        return distance[m - 1][n - 1]
