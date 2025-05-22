@@ -1,0 +1,22 @@
+class Solution:
+    def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
+        queries.sort(key = lambda x: x[0])
+        diff = [0] * (len(nums) + 1)
+        h = []
+        idx, now = 0,0
+
+        for i in range(len(nums)):
+            while idx < len(queries) and queries[idx][0] <= i:
+                heappush(h, -queries[idx][1])
+                idx += 1
+            
+            now += diff[i]
+
+            while h and now < nums[i] and -h[0] >= i:
+                now += 1
+                diff[-heappop(h) + 1] -= 1
+
+            if now < nums[i]:
+                return -1
+            
+        return len(h)
