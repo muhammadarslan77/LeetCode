@@ -1,0 +1,12 @@
+class Solution:
+    def partitionArray(self, nums: List[int], k: int) -> int:
+        nums = sorted(list(set(nums)))  
+        answer = 1
+        min = nums[0]
+
+        for num in nums[1:]:
+            if num - min > k:
+                answer += 1
+                min = num
+
+        return answer
