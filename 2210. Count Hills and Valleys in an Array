@@ -1,0 +1,19 @@
+triplet = []
+        result = 0
+
+        def is_valid(group: List[int]) -> bool:
+            a, b, c = group
+            return (a < b and b > c) or (a > b and b < c)
+
+        for num in nums:
+            if not triplet or triplet[-1] != num:
+                if len(triplet) < 3:
+                    triplet.append(num)
+                else:
+                    result += int(is_valid(triplet))
+                    triplet = [triplet[1], triplet[2], num]
+
+        if len(triplet) == 3:
+            result += int(is_valid(triplet))
+
+        return result
