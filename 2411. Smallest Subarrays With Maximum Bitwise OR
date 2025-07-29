@@ -1,0 +1,5 @@
+class Solution:
+    def smallestSubarrays(self, nums: List[int]) -> List[int]:
+        d = {}
+        return [max([*(d:=d|{q:i for q in range(32) if nums[i]&1<<q}).values(),i])-i+1
+            for i in range(len(nums)-1,-1,-1)][::-1]
