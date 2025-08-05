@@ -1,0 +1,15 @@
+class Solution:
+    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
+        unplaced = 0
+        for fruit in fruits:
+            j = 0
+            flag = True
+            while j < len(baskets):
+                if fruit <= baskets[j]:
+                    baskets.remove(baskets[j])
+                    flag = False
+                    break
+                j += 1
+            if flag:
+                unplaced += 1
+        return unplaced
