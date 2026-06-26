@@ -1,0 +1,8 @@
+from bisect import bisect_left
+class Solution:
+    def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
+        arr = [1 if x == target else -1 for x in nums]
+        
+        prefix = 0
+        seen = [0]  
+        res = 0
