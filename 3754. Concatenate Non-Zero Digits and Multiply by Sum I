@@ -1,0 +1,3 @@
+class Solution:
+    def sumAndMultiply(self, n: int) -> int:
+        return n and int(x:=str(n).replace('0',''))*sum(map(int,x))
