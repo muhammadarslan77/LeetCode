@@ -1,0 +1,14 @@
+class Solution:
+    def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        n = len(grid[0])
+        total = len(grid) * n
+        if not (k := k % total):  
+            return grid
+        div = gcd(total, k)  
+        for i in range(div):
+            r, c = divmod(i, n)
+            curr = grid[r][c]  
+            for j in range(total // div):
+                r, c = divmod((i + k * (j + 1)) % total, n) 
+                grid[r][c], curr = curr, grid[r][c]  
+        return grid
