@@ -1,0 +1,13 @@
+class Solution:
+    def uniqueXorTriplets(self, nums: List[int]) -> int:
+        ans = set()
+        n = len(nums)
+        xor = set()
+        for i in range(n):
+            for j in range(n):
+                xor.add(nums[i] ^ nums[j])
+        for x in xor:
+            for j in range(n):
+                ans.add(x ^ nums[j])
+        
+        return len(ans)
