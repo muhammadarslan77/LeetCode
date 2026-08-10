@@ -5,4 +5,4 @@ class Solution:
         for index , number in enumerate(nums):
             if target-number in hash_map:
                 return [index,hash_map[target-number]]
-            hash_map[number]=index
+            hash_map[number]=index 
