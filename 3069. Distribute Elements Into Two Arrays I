@@ -1,0 +1,16 @@
+from typing import List
+
+class Solution:
+    def resultArray(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        ans = []
+        v1 = [nums[0]]
+        v2 = [nums[1]]
+        for i in range(2, n):
+            if v1[-1] > v2[-1]:
+                v1.append(nums[i])
+            else:
+                v2.append(nums[i])
+        ans.extend(v1)
+        ans.extend(v2)
+        return ans
