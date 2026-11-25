@@ -1,0 +1,56 @@
+class Solution:
+    def smallestUniqueSubarray(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        BASE = 911382323
+        MOD = 10**9 + 7
+
+        power = [1] * (n + 1)
+
+        pref = [0] * (n + 1)
+
+        for i in range(n):
+            power[i + 1] = (power[i] * BASE) % MOD
+            pref[i + 1] = (pref[i] * BASE + nums[i] + 1) % MOD
+
+        def getHash(l, r):
+
+            return (
+                pref[r + 1]
+                - (pref[l] * power[r - l + 1]) % MOD
+                + MOD
+            ) % MOD
+
+        def possible(length):
+
+            freq = {}
+
+            for i in range(n - length + 1):
+
+                h = getHash(i, i + length - 1)
+
+                freq[h] = freq.get(h, 0) + 1
+
+            for cnt in freq.values():
+
+                if cnt == 1:
+                    return True
+
+            return False
+
+        low = 1
+        high = n
+
+        ans = n
+
+        while low <= high:
+
+            mid = low + (high - low) // 2
+
+            if possible(mid):
+                ans = mid
+                high = mid - 1
+            else:
+                low = mid + 1
+
+        return ans
